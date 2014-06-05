@@ -1,0 +1,42 @@
+n, k, p = map(int, raw_input().split());
+a = map(int, raw_input().split());
+b, c = [], [];
+even, odd = 0, 0;
+for i in xrange(n):
+  if a[i] % 2 == 0:
+  	even += 1
+  	b.append(a[i]);
+  else:
+  	c.append(a[i]);
+odd = n - even;
+if odd < k-p or odd/2+even < p or (odd+k-p)%2:
+	print "NO"
+else:
+	print "YES";
+	for i in xrange(k-p):
+	  print 1, c[i]
+	for i in xrange(k-p, odd):
+	  b.append(c[i]);
+	j = even;
+	if even >= p:
+		for i in xrange(p-1):
+		  print 1, b[i]
+		left = n - (k-p) - (p-1)
+		print left, 
+		for i in xrange(p, p+left):
+			print b[i],
+	else:
+		for i in xrange(even):
+			print 1, b[i]
+		for i in xrange(p-even-1):
+			print 2, b[j], b[j+1]
+			j += 2
+		left = n - (k-p) - even - 2*(p-even-1)
+		print left, 
+		for i in xrange(j, j+left):
+			print b[j],
+
+
+
+
+

@@ -5,8 +5,8 @@
 int neg[100005], zr[100005], t[100005],  n;
 
 int main(void) {
-//	freopen("input.txt", "r", stdin);
-//	freopen("output.txt", "w", stdout);
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
 	while (~scanf("%d", &n)) {
 		int i;
 		neg[0] = zr[0] = 0;
@@ -21,10 +21,8 @@ int main(void) {
 		}
 		int tot = neg[n]+zr[n];
 		int ans = inf;
-		for (i=2; i<n; i++) {
-			ans = min(ans, (i-1-neg[i-1])+(tot-neg[i]-zr[i]));
-			if (t[i] == 0)
-				ans++;
+		for (i=1; i<n; i++) {
+			ans = min(ans, i-neg[i] + tot-neg[i]-zr[i]);
 		}
 
 		printf("%d\n", ans);
