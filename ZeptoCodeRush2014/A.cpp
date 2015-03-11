@@ -22,36 +22,32 @@ node a[2005];
 bool vis[2005];
 
 int
-cmp(node a, node b) {
-  	return a.h < b.h;
-}
-
-int
 main(void) {
   	int n, x;
   	scanf("%d %d", &n, &x);
 	for (int i = 0; i < n; i++) {
 	  	scanf("%d %d %d", &a[i].t, &a[i].h, &a[i].m);
 	}
-	sort(a, a + n, cmp);
 	int ans = 0;
-	int pre = -1;
-	memset(vis, false, sizeof(vis));
-	while (1) {
-	  	int maxM = -1, ii = 0;
-		for (int i = 0; i < n && x >= a[i].h; i++) {
-		  	if (vis[i]) continue;
-			if (pre == a[i].t) continue;
-			if (maxM < a[i].m) {
-			  	maxM = a[i].m;
-				ii = i;
+	for (int tt = 0; tt < 2; tt++) {
+		memset(vis, false, sizeof(vis));
+		int cnt = 0, curt = tt, curx = x;
+		while (1) {
+		  	int maxM = -1, ii = 0;
+			for (int i = 0; i < n; i++) {
+		  		if (vis[i] || curt != a[i].t || curx < a[i].m) continue;
+				if (maxM < a[i].m) {
+			  		maxM = a[i].m;
+					ii = i;
+				}
 			}
+			if (maxM == -1) break;
+			vis[ii] = true;
+			curx += maxM;
+			cnt++;
+			curt ^= 1;
 		}
-		if (maxM == -1) break;
-		vis[ii] = true;
-		x += maxM;
-		ans++;
-		pre = a[ii].t;
+		ans = max(ans, cnt);
 	}
 	printf("%d\n", ans);
 
